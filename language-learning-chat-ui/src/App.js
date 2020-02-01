@@ -1,4 +1,9 @@
 import React from 'react';
+import logo from './logo.svg';
+import './App.css';
+import { submitChat } from './services/chat-service';
+
+// @material-ui imports
 import { styled } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
@@ -9,8 +14,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import logo from './logo.svg';
-import './App.css';
 
 const AppContainer = styled(Card)({
   background: 'linear-gradient(45deg, #FF8E53 30%, #FE6B8B 90%)',
@@ -37,9 +40,11 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      language: '',
-      text: '',
-      response: '',
+      language: 'en-US',
+      text: 'Hello! How are you?',
+      submittedNote: '',
+      submittedText: '',
+      responseText: '',
     }
   }
   handleLanguageChange = (e) => { 
@@ -48,9 +53,15 @@ class App extends React.Component {
   handleTextChange = (e) => { 
     this.setState({text: e.target.value});
   }
-  submitText = (text, language) => () => {
-    const response = 'You submitted some text with language code \'' + language + '\'! We still need to set up the connection to our server. In the meantime, here is what you last submitted: ' + text;
-    this.setState({response});
+  async submitText(text, language) {
+    const submittedNote = 'You submitted some text with language code \'' + language + '\': ';
+    const submittedText = text;
+    const response = await submitChat(text, language);
+    let responseText = 'Response: ';
+    responseText += response.matches.length === 0 ?
+      'Looks great!' :
+      response.matches[0].message;
+    this.setState({submittedNote, submittedText, responseText});
   }
 
   render() {
@@ -67,7 +78,7 @@ class App extends React.Component {
                 <Select
                   labelId="language-select-label"
                   id="language-select"
-                  style={{ width: 200 }}
+                  style={{ width: 200, textAlign: 'left' }}
                   value={this.state.language}
                   onChange={this.handleLanguageChange}
                 >
@@ -85,12 +96,14 @@ class App extends React.Component {
                 value={this.state.text}
                 onChange={this.handleTextChange}
               />
-              <Button variant="contained" color="primary" onClick={this.submitText(this.state.text, this.state.language)}>
+              <Button variant="contained" color="primary" onClick={() => this.submitText(this.state.text, this.state.language)}>
                 Submit Text
               </Button>
             </FormControl>
             <div style={{padding: 20}}>
-              {this.state.response}
+              <div>{this.state.submittedNote}</div>
+              <div>{this.state.submittedText}</div>
+              <div style={{paddingTop: 20}}>{this.state.responseText}</div>
             </div>
           </MyCard>
         </React.Fragment>
