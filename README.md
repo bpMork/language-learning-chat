@@ -10,5 +10,5 @@ npm install
 npm start
 ```
 ### LanguageTool Server
-Follow the docker containers here to set up a local LanguageTool Server:
-https://hub.docker.com/r/silviof/docker-languagetool
+Follow the docker setup instructions [here](https://hub.docker.com/r/silviof/docker-languagetool) to set up a local LanguageTool Server.
+
