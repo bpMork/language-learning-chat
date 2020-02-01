@@ -9,3 +9,6 @@ cd language-learning-chat-ui
 npm install
 npm start
 ```
+### LanguageTool Server
+Follow the docker containers here to set up a local LanguageTool Server:
+https://hub.docker.com/r/silviof/docker-languagetool
