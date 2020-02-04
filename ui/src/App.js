@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import logo from './logo.svg';
 import './App.css';
-import { submitChat } from './services/chat-service';
 
 // @material-ui imports
 import { styled } from '@material-ui/core/styles';
