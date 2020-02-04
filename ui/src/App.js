@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import logo from './logo.svg';
+import ThemedExample from './components/ChatBot';
 import './App.css';
 
 // @material-ui imports
@@ -79,6 +78,7 @@ function AppRouter() {
             >
               Submit Text
             </Button>
+            <ThemedExample />
           </FormControl>
           <div style={{ padding: 20 }}>
             <div>{submittedNote}</div>
