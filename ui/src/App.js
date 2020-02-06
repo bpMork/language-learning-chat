@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import ThemedExample from './components/ChatBot';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ThemedExample from './components/chatbot';
 import './App.css';
-import BaseCard from './components/BaseCard';
-import AppContainer from './components/AppContainer';
+import BaseCard from './components/basecard';
+import AppContainer from './components/appcontainer';
+import LoginForm from './components/login';
 
 // @material-ui imports
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,49 +25,52 @@ function AppRouter() {
   return (
     <AppContainer>
       <React.Fragment>
-        <CssBaseline />
-        <BaseCard>
-          <Typography component="div" />
-          <FormControl>
-            <div style={{ paddingBottom: 10 }}>
-              <InputLabel id="language-select-label">Language</InputLabel>
-              <Select
-                labelId="language-select-label"
-                id="language-select"
-                style={{ width: 200, textAlign: 'left' }}
-                value={language}
-                onChange={setLanguage}
+        <Router>
+          <CssBaseline />
+          <BaseCard>
+            <Typography component="div" />
+            <FormControl>
+              <div style={{ paddingBottom: 10 }}>
+                <InputLabel id="language-select-label">Language</InputLabel>
+                <Select
+                  labelId="language-select-label"
+                  id="language-select"
+                  style={{ width: 200, textAlign: 'left' }}
+                  value={language}
+                  onChange={setLanguage}
+                >
+                  <MenuItem value="en-US">English</MenuItem>
+                  <MenuItem value="fr">French</MenuItem>
+                </Select>
+              </div>
+              <TextField
+                id="standard-multiline-flexible"
+                label="Text"
+                multiline
+                rowsMax="8"
+                placeholder="Placeholder"
+                style={{ width: 200, paddingBottom: 20 }}
+                value={text}
+                onChange={setText}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => this.submitText(text, language)}
               >
-                <MenuItem value="en-US">English</MenuItem>
-                <MenuItem value="fr">French</MenuItem>
-              </Select>
-            </div>
-            <TextField
-              id="standard-multiline-flexible"
-              label="Text"
-              multiline
-              rowsMax="8"
-              placeholder="Placeholder"
-              style={{ width: 200, paddingBottom: 20 }}
-              value={text}
-              onChange={setText}
-            />
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() => this.submitText(text, language)}
-            >
-              Submit Text
-            </Button>
-          </FormControl>
-          <ThemedExample />
+                Submit Text
+              </Button>
+            </FormControl>
+            <ThemedExample />
 
-          <div style={{ padding: 20 }}>
-            <div>{submittedNote}</div>
-            <div>{setText}</div>
-            <div style={{ paddingTop: 20 }}>{responseText}</div>
-          </div>
-        </BaseCard>
+            <div style={{ padding: 20 }}>
+              <div>{submittedNote}</div>
+              <div>{setText}</div>
+              <div style={{ paddingTop: 20 }}>{responseText}</div>
+            </div>
+          </BaseCard>
+          <Route path="/login/" component={LoginForm} />
+        </Router>
       </React.Fragment>
     </AppContainer>
   );

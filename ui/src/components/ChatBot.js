@@ -33,10 +33,10 @@ const steps = [
   {
     id: 'Waiting user input for name',
     user: true,
-    trigger: 'Asking options to eat',
+    trigger: 'Politesse',
   },
   {
-    id: 'Asking options to eat',
+    id: 'Politesse',
     message: 'Hi {previousValue}, Glad to know you !!',
     trigger: 'Done',
   },
@@ -49,7 +49,7 @@ const steps = [
 
 const ThemedExample = () => (
   <ThemeProvider theme={theme}>
-    <ChatBot steps={steps} {...config} />;
+    <ChatBot steps={steps} {...config} />
   </ThemeProvider>
 );
 export default ThemedExample;
